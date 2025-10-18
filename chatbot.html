@@ -18,6 +18,11 @@
           setInputText(event.target.value);
         }
 
+        function saveInputTextKeyDown(event){
+          if(event.key === 'Enter') sendMessage();
+          if(event.key === 'Escape') setMessage('');
+        }
+
         function sendMessage(){
           const newChatMessages = [
             ...chatMessages,
@@ -46,7 +51,7 @@
         return (
           <>
             <input placeholder='Send a message to ChatBot' size='30'
-              onChange={saveInputText} value={inputText} />
+              onChange={saveInputText} value={inputText} onKeyDown={saveInputTextKeyDown} />
             <button onClick={sendMessage}>Send</button>
           </>  
         );
