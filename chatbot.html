@@ -180,10 +180,10 @@
         return chatMessagesRef;
       }
       function ChatMessages({chatMessages}){
-        const useAutoScrolll = useAutoScroll(chatMessages);
+        const useAutoScroll = useAutoScroll(chatMessages);
         return(<>
           {chatMessages.length === 0 && (<div className='welcome'>Welcome to ChatBot Project! Send a message using the textbox below.</div>)}
-          <div className='chat-messages-container' ref={useAutoScrolll}>
+          <div className='chat-messages-container' ref={useAutoScroll}>
           
             {chatMessages.map((chatMessage)=>{
                   return(

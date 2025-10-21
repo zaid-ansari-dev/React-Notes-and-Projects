@@ -1,0 +1,69 @@
+      .app{
+        max-width: 600px;
+        margin:auto;
+        height:100vh;
+        display:flex;
+        flex-direction:column;
+        /* justify-content: flex-end; */
+      }
+
+      .input-holder{
+        display:flex;
+        margin-bottom:20px;
+      }
+
+      .send-button{
+        background-color:rgb(25,135,84);
+        color:white;
+        padding:12px 20px;
+        margin-left:10px;
+        border:none;
+        border-radius:10px;
+        font-size:15px;
+        cursor:pointer;
+      }
+
+      .input-bar{
+        padding:12px 15px;
+        border-radius:10px;
+        border-width:1px;
+        font-size:15px;
+        flex-grow:1;
+        
+      }
+
+      .user-one{
+        display:flex;
+        justify-content: flex-end;
+        align-items:flex-start;
+      }
+
+      .robot-one{
+        display:flex;
+        align-items:flex-start;
+      }
+
+      
+
+      .pic{
+        width:45px;
+      }
+
+      .chat-messages-container{
+        flex-grow:1;
+        margin-top:20px;
+        overflow-y:scroll;
+        scrollbar-width:none;
+      }
+
+      .welcome{
+        text-align:center;
+        margin-top:40%;
+        font-size:30px;
+        font-weight:bolder;
+        color:gray;
+      }
+      .spinner{
+        height:40px;
+        margin:-15px;
+      }
