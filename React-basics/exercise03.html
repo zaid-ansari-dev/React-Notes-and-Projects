@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ChatBot</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
+    <script src="https://unpkg.com/supersimpledev@3.2.1/external-library.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+        
+        function Button({currentCount,changeCount}){
+            function updateCount(){
+                changeCount(currentCount + 1);
+            }
+            function reset(Reset){
+                changeCount(0)
+            }
+            return(
+                <>
+                {currentCount===0 && <button onClick={updateCount}>Count: {currentCount} times</button>}
+                {currentCount===1 && <button onClick={updateCount}>Count: {currentCount} time</button>}
+                {currentCount>1 && <button onClick={updateCount}>Count: {currentCount} times</button>}
+                
+                </>
+            )
+        }
+        function NameInput({currentName,changeName}){
+            // const [currentName,changeName] = React.useState('');
+            function nameInput(event){
+                changeName(event.target.value);
+            }
+            function reset(){
+                changeName('');
+            }
+            function showExample(){
+                changeName('Zaid');
+            }
+            return(
+                <div>
+                    <input placeholder='enter your name' size='10'onChange={nameInput}/>
+                    <button onClick={reset}>Reset</button>
+                    <button onClick={showExample}>Example</button>
+                    {currentName !== '' && <div>My name is {currentName}. Yes I am {currentName}. Hello from {currentName}</div>}
+                </div> 
+            )
+        }
+        function App(){
+            const [countA,setCountA] = React.useState(0);
+            const [currentName,changeName] = React.useState('');
+            function resetAll(){
+                setCountA(0);
+            }
+            return(
+                <>
+                    <Button
+                        currentCount = {countA}
+                        changeCount = {setCountA}
+                    />
+                    <Button
+                        currentCount = {countA}
+                        changeCount = {setCountA}
+                    />
+                    <button
+                        onClick={resetAll}>Reset
+                    </button>
+                    <NameInput
+                        currentName={currentName}
+                        changeName={changeName}
+                    />
+                </>
+            )
+        }
+        const container = document.querySelector('.js-container');
+        ReactDOM.createRoot(container).render(<App/>);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ChatBot</title>
+    <style>
+      .onBtn{
+        display:block;
+        border:none;
+        border-radius:10px;
+        background-color: rgb(25,135,84) ;
+        padding:12px 15px;
+        color:white;
+      }
+      .login{
+        margin-top:20px;
+        display:inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap:10px;
+      }
+      input{
+        border:1px solid gray;
+        padding:10px;
+        background-color: white;
+        border-radius: 10px;
+        margin-right:8px;
+      }
+      .colorBtn > *{
+        border: none;
+        background-color: rgb(0,123,255);
+        border-radius: 10px;
+        color:white;
+        margin-left:5px;
+        padding:12px 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
+    <script src="https://unpkg.com/supersimpledev@3.2.1/external-library.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+
+    <script type="text/babel">
+     
+     function Button(){
+        const [current,change] = React.useState(true);
+        function signal(){
+            change(!current);
+        }
+
+        return(
+            <button className='onBtn' onClick={signal} style={{backgroundColor:current?'rgb(25,135,84)':'red'}}>
+                {current?'On':'Off'}
+            </button>
+        );
+     }
+
+     function Email(){
+        const [current,change] = React.useState('text');
+        function toggle (){
+            change(!current);
+        }
+        
+        return(
+            <div className='login'>
+                <p>Hello, welcome to my website </p>
+                <input placeholder='Email'/>
+                <div>
+                    <input type={current?'text':'password'} placeholder='Password'/>
+                    <button onClick={toggle}>Hide</button>
+                </div>
+                <div className='colorBtn'>
+                    <button>Login</button>
+                    <button>Sign Up</button>
+                </div>    
+            </div>
+        )
+     }
+     function Clock(){
+        const [time,setTime] = React.useState(dayjs().format('HH:mm:ss'));
+        React.useEffect(()=>{
+            const intervalId = setInterval(()=>{
+                setTime(dayjs().format('HH:mm:ss'));
+                console.log('run code');
+            },1000);
+            return() => clearInterval(intervalId);
+        },[]);
+        return (
+            <div>{time}</div>
+        );
+     }
+
+     function Counter(){
+        const [current,change] = React.useState(0);
+        const buttonRef = React.useRef(null);
+        const intervalRef = React.useRef(null); 
+
+        function count(){
+            change(prev=>prev + 1);
+        }
+        
+        function reset(){
+            change(0);
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
+
+        function autoClickSwitch(){
+            if(intervalRef.current) return;
+            intervalRef.current = setInterval(()=>{
+                if(buttonRef.current){
+                    buttonRef.current.click();
+                }
+            },1000);
+            setTimeout(()=>{
+                clearInterval(intervalRef.current);
+                intervalRef.current = null;
+            },10000);
+        }
+        
+        return(
+            <>
+                <button ref={buttonRef} onClick={count}>Clicked {current} {current===1?'time':'times'}</button>
+                <button onClick={reset}>Reset</button>
+                <button onClick={autoClickSwitch}>Auto Click</button>
+            </>
+        )
+     }
+
+     function App(){
+        
+        return(
+            <>
+                <Button/>
+                <Email/>
+                <Clock/>
+                <Counter/>
+            </>
+        )    
+     }
+     const container = document.querySelector('.js-container');
+     ReactDOM.createRoot(container).render(<App/>);
+    </script>
+  </body>
+</html>
